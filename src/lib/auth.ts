@@ -4,6 +4,10 @@ import { db } from "../database/db";
 import * as schema from "../database/schema";
 import { organization } from "better-auth/plugins";
 
+if (!process.env.FRONTEND_URL) {
+  throw new Error("FRONTEND_URL is not set in the .env file");
+}
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg", // or "mysql", "sqlite"
@@ -11,4 +15,11 @@ export const auth = betterAuth({
   }),
   emailAndPassword: { enabled: true },
   plugins: [organization({ allowUserToCreateOrganization: true })],
+
+  advanced: {
+    cookiePrefix: "job-board",
+    useSecureCookies: true,
+    defaultCookieAttributes: { sameSite: "none", secure: true, httpOnly: true },
+  },
+  trustedOrigins: [process.env.FRONTEND_URL],
 });
