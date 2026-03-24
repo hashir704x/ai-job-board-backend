@@ -42,6 +42,8 @@ export const applicationStageEnum = pgEnum("application_stage", [
   "hired",
 ]);
 
+export const userRolesEnum = pgEnum("user_roles_enum", ["employer", "applicant"])
+
 // --- TABLES ---
 
 export const user = pgTable("user", {
@@ -55,7 +57,9 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
+  userRole: userRolesEnum().notNull()
 });
+
 
 export const session = pgTable(
   "session",

@@ -11,9 +11,16 @@ if (!process.env.FRONTEND_URL) {
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
-    provider: "pg", // or "mysql", "sqlite"
+    provider: "pg",
     schema: schema,
   }),
+
+  user: {
+    additionalFields: {
+      userRole: { type: "string", required: true, input: true },
+    },
+  },
+
   emailAndPassword: { enabled: true },
   plugins: [organization({ allowUserToCreateOrganization: true })],
 
