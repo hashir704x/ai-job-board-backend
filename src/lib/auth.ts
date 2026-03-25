@@ -15,12 +15,6 @@ export const auth = betterAuth({
     schema: schema,
   }),
 
-  user: {
-    additionalFields: {
-      userRole: { type: "string", required: true, input: true },
-    },
-  },
-
   emailAndPassword: { enabled: true },
   plugins: [organization({ allowUserToCreateOrganization: true })],
 
