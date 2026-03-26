@@ -184,8 +184,8 @@ export const jobListingTable = pgTable(
     description: text("description").notNull(),
     wage: integer("wage"),
     wageInterval: wageIntervalEnum("wage_interval"),
-    stateAbbreviation: text("state_abbreviation"),
-    city: text("city"),
+    // stateAbbreviation: text("state_abbreviation"),
+    // city: text("city"),
     isFeatured: boolean("is_featured").notNull().default(false),
     locationRequirement: locationRequirementEnum(
       "location_requirement",
@@ -200,7 +200,7 @@ export const jobListingTable = pgTable(
       .$onUpdate(() => new Date())
       .notNull(),
   },
-  (table) => [index("job_state_idx").on(table.stateAbbreviation)],
+  // (table) => [index("job_state_idx").on(table.stateAbbreviation)],
 );
 
 export const jobListingApplicationTable = pgTable(
